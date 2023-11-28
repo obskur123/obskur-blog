@@ -157,4 +157,4 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['obskur-blog-e03890e3f412.herokuapp.com']
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())

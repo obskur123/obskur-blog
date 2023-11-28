@@ -1,0 +1,10 @@
+#comment-box {
+    height: 90%;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 767px) {
+    #comment-box {
+        height: 500px; /* Adjust the height as needed for mobile screens */
+    }
+}

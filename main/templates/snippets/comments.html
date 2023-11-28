@@ -1,0 +1,25 @@
+{% for c in comments %}
+<div class="card text-bg-light mb-3">
+    <div class="card-header">
+        {% if c.admin %}
+        admin - {{ c.anon_user }}
+        {% else %}
+        anon
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <p class="card-text">{{ c.content }}</p>
+        {% if request.user.is_superuser %}
+        <a 
+            class="btn btn-danger" 
+            hx-delete="{% url "delete-comment" comment_id=c.id%}" 
+            hx-target="#comment-box" 
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-swap="innerHTML"
+        >
+            eliminar
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}

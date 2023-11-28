@@ -1,0 +1,46 @@
+{% extends "layouts/base.html" %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<div class="d-flex h-100">
+        <div class="col-4">
+            <div class="card h-100 me-1">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% render_field form.title class="form-control mb-2" placeholder="titulo" _="on input put event.target.value into #card-title.innerHTML" %}
+                        {% render_field form.body class="form-control mb-2" placeholder="contenido" _="on input put event.target.value into #card-text.innerHTML" %}
+                        {{ form.files|add_class:"form-control mb-2"|attr:"_:on change js document.getElementById('post-img').src = URL.createObjectURL(event.target.files[0]) end"}}
+                        <button class="btn btn-primary" type="submit" >crear post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body" style="overflow-y: scroll">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded">
+                            <div class="carousel-item active" style="background-color: #333333;">
+                                <img id="post-img" class="d-block mx-auto" style="object-fit: cover; height: 500px;" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div> 
+                    <h5 id="card-title" class="card-title mt-3"></h5>
+                    <p id="card-text" class="card-text" style="word-break: break-all;"></p>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock content %}

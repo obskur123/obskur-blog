@@ -1,0 +1,21 @@
+{% for p in posts %}
+{% if not p.archived or request.user.is_superuser %}
+<div class="col-md-4 mb-3">
+    <div class="card m-1">
+        <img src="{{ p.images.first.file.url }}" style="height: 500px; object-fit: cover; width: 100%;"
+            class="img-fluid rounded-start" alt="..." />
+        <div class="card-body">
+            <a class="card-title" href="{% url "post" post_id=p.id %}">{{ p.title }}</a>
+            <p class="card-text"></p>
+            {% if request.user.is_superuser %}
+                {% include "snippets/toggle_archived_button.html" with archived=p.archived post_id=p.id%}
+                <a hx-delete="{% url "delete-post" post_id=p.id %}" hx-target="#post-container" hx-swap="innerHTML"
+                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="btn btn-danger">
+                    eliminar
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+</div>
+{% endfor %}

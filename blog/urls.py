@@ -29,7 +29,7 @@ urlpatterns = [
     path('blog/', include('main.urls'))
 ] 
 
-USE_S3 = os.getenv('USE_S3') == 'FALSE'
+USE_S3 = os.getenv('USE_S3') == 'TRUE'
 
 if USE_S3:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

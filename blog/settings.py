@@ -36,7 +36,7 @@ if os.getenv('DEBUG') == "TRUE":
     }
 else:
     DEBUG = False
-    SECRET_KEY = os.getenv('SECREY_KEY') 
+    SECRET_KEY = os.getenv('SECRET_KEY') 
     ALLOWED_HOSTS = [os.getenv('PROD_URL')]
     DATABASES = {
         'default': {

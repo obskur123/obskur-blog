@@ -1,5 +1,7 @@
 {% extends "layouts/base.html" %}
 
+{% load utils %}
+
 {% block content %}
 <div class="d-flex flex-column-reverse flex-lg-row h-100" style="overflow-y: auto;">
     <div id="comment-card" class="col-lg-4 mt-1 mt-lg-0 me-lg-1">
@@ -25,7 +27,7 @@
                     <div class="carousel-inner rounded">
                         {% for img in post.images.all %}
                         <div class="carousel-item {% if forloop.first %} active{% endif %}" style="background-color: #212529;">
-                            <img src="{{ img.file.url }}" class="d-block mx-auto"
+                            <img src="data:image/png;base64, {{img.file|binary_to_image}}" class="d-block mx-auto"
                                 style="object-fit: cover; height: 500px;" alt="...">
                         </div>
                         {% endfor %}

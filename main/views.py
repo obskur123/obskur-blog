@@ -30,13 +30,7 @@ def create_post(request: HttpRequest):
 
             for file in form.cleaned_data['files']:
 
-                f_extension = file.name.split('.')[-1]
-
-                f_new_name = generate(size=10)
-
-                file.name = f'{f_new_name}.{f_extension}'
-
-                image = Image(file=file, post_id=post.id)
+                image = Image(file=file.read(), post_id=post.id)
 
                 image.save()
 

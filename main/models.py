@@ -1,4 +1,5 @@
 from django.db import models
+import base64
 
 
 class Post(models.Model):
@@ -22,9 +23,9 @@ class Comment(models.Model):
 
 
 class Image(models.Model):
-    file = models.ImageField(upload_to="images")
+    file = models.BinaryField()
     post = models.ForeignKey(
         Post, related_name="images", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.file.name
+        return str(base64.b64encode(self.file))

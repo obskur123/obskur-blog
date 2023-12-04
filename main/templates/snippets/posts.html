@@ -1,12 +1,11 @@
 {% load utils %}
 
-
 {% for p in posts %}
 {% if not p.archived or request.user.is_superuser %}
 <div class="col-md-4 mb-3">
     <div class="card m-1">
-        <img src="data:image/png;base64, {{p.images.first.file|binary_to_image}}" style="height: 500px; object-fit: cover; width: 100%;"
-            class="img-fluid rounded-start" alt="..." />
+        <img src="{{p.images.first.file.url}}" style="height: 500px; object-fit: cover; width: 100%;"
+            class="img-fluid rounded-start" alt="...">
         <div class="card-body">
             <a class="card-title" href="{% url "post" post_id=p.id %}">{{ p.title }}</a>
             <p class="card-text"></p>

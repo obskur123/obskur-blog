@@ -27,7 +27,7 @@
                     <div class="carousel-inner rounded">
                         {% for img in post.images.all %}
                         <div class="carousel-item {% if forloop.first %} active{% endif %}" style="background-color: #212529;">
-                            <img src="data:image/png;base64, {{img.file|binary_to_image}}" class="d-block mx-auto"
+                            <img src="{{img.file.url}}" class="d-block mx-auto"
                                 style="object-fit: cover; height: 500px;" alt="...">
                         </div>
                         {% endfor %}

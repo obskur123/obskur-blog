@@ -1,6 +1,8 @@
 from django.db import models
 import base64
 
+from blog.storage_backends import PublicMediaStorage
+
 
 class Post(models.Model):
     title = models.CharField(max_length=64)
@@ -23,7 +25,7 @@ class Comment(models.Model):
 
 
 class Image(models.Model):
-    file = models.BinaryField()
+    file = models.FileField(storage=PublicMediaStorage())
     post = models.ForeignKey(
         Post, related_name="images", on_delete=models.CASCADE)
 

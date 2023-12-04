@@ -30,9 +30,11 @@ def create_post(request: HttpRequest):
 
             for file in form.cleaned_data['files']:
 
-                image = Image(file=file.read(), post_id=post.id)
+                image = Image(file=file, post_id=post.id)
 
                 image.save()
+
+                print(image.file.url)
 
             return redirect('/blog/home')
 

@@ -37,7 +37,7 @@ if os.getenv('DEBUG') == "TRUE":
 else:
     DEBUG = False
     SECRET_KEY = os.getenv('SECRET_KEY') 
-    ALLOWED_HOSTS = [os.getenv('PROD_URL')]
+    ALLOWED_HOSTS = [os.getenv('PROD_URL'), '127.0.0.1']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',

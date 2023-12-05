@@ -152,6 +152,7 @@ def post(request: HttpRequest, post_id):
 
 def home(request: HttpRequest):
     posts = Post.objects.all()
+    print(posts)
     return render(request, 'home.html', {'posts': posts})
 
 

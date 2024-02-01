@@ -1,8 +1,11 @@
-
 {% extends 'layouts/base.html' %}
 
+
 {% block content %}
-<div class="d-flex flex-wrap" id="post-container">
-    {% include "snippets/posts.html" with posts=posts %}
+
+<div class="home-content">
+    <h1 id="home-title"></h1>
+    <p id="home-description"></p>
 </div>
-{% endblock %}
+
+{% endblock content %}

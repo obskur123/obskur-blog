@@ -23,11 +23,13 @@ class Comment(models.Model):
     def __str__(self):
         return self.anon_user + ' ' + self.content
 
+class DebugImage(models.Model):
+    file = models.FileField(upload_to='images')
+    post = models.ForeignKey(
+        Post, related_name="dimages", on_delete=models.CASCADE)
+
 
 class Image(models.Model):
     file = models.FileField(storage=PublicMediaStorage())
     post = models.ForeignKey(
         Post, related_name="images", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(base64.b64encode(self.file))

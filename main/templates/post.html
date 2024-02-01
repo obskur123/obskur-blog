@@ -4,6 +4,26 @@
 
 {% block content %}
 <div class="d-flex flex-column-reverse flex-lg-row h-100" style="overflow-y: auto;">
+
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column" style="overflow-y: scroll">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded">
+                    </div>
+                </div>
+                <h5 class="card-title mt-3">{{post.title}}</h5>
+                <div id="">
+                        {% for img in post.dimages.all %}
+                            <img src="{{img.file.url}}" class="d-block mx-auto"
+                                style="object-fit: cover; height: 20px; width: 20px" alt="...">
+                        {% endfor %}
+                </div>
+                <p class="card-text">{{post.body}}</p>
+            </div>
+        </div>
+    </div>
+
     <div id="comment-card" class="col-lg-4 mt-1 mt-lg-0 me-lg-1">
         <div class="card h-100 me-1">
             <div id="comment-box" class="card-body" style="overflow-y: auto;">
@@ -18,34 +38,6 @@
                 </form>
             </div>
 
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100">
-            <div class="card-body d-flex flex-column" style="overflow-y: scroll">
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner rounded">
-                        {% for img in post.images.all %}
-                        <div class="carousel-item {% if forloop.first %} active{% endif %}" style="background-color: #212529;">
-                            <img src="{{img.file.url}}" class="d-block mx-auto"
-                                style="object-fit: cover; height: 500px;" alt="...">
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-                <h5 class="card-title mt-3">{{post.title}}</h5>
-                <p class="card-text">{{post.body}}</p>
-            </div>
         </div>
     </div>
 </div>

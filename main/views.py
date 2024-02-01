@@ -1,19 +1,18 @@
+import os
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from .models import Image, Post, Comment
+from .models import DebugImage, Image, Post, Comment
 from .forms import PostForm, CommentForm
 from django.http import HttpRequest
-from nanoid import generate
 
 
-@login_required(login_url='/blog/sign-in')
 def posts(request: HttpRequest):
     posts = Post.objects.all()
 
-    return render(request, 'posts.html', {'posts': posts})
+    return render(request, 'post_list.html', {'posts': posts})
 
 
 @login_required(login_url='/blog/sign-in')
@@ -30,11 +29,19 @@ def create_post(request: HttpRequest):
 
             for file in form.cleaned_data['files']:
 
-                image = Image(file=file, post_id=post.id)
+                if os.getenv('USE_S3') == 'TRUE':
 
-                image.save()
+                    image = Image(file=file, post_id=post.id)
 
-                print(image.file.url)
+                    image.save()
+
+                    print(image.file.url)
+
+                else:
+
+                    image = DebugImage(file=file, post_id=post.id)
+
+                    image.save()
 
             return redirect('/blog/home')
 
@@ -118,42 +125,35 @@ def sign_in(request: HttpRequest):
 
 def add_comment(request: HttpRequest, post_id: int):
     if request.method == 'POST':
-
         form = CommentForm(request.POST)
-
         if form.is_valid():
-
             username = 'anon'
             admin = False
-
             if request.user.is_superuser:
                 username = request.user.username
                 admin = True
-
             comment = Comment(anon_user=username, admin=admin,
                               content=form.cleaned_data['content'], post_id=post_id)
-
             comment.save()
-
             comments = get_list_or_404(Comment.objects.filter(post_id=post_id))
-
             return render(request, 'snippets/comments.html', {'comments': comments})
 
 
 def post(request: HttpRequest, post_id):
-
     p = get_object_or_404(Post, id=post_id)
-
     if p.archived and not request.user.is_superuser:
         return redirect('/blog/home')
-
     return render(request, 'post.html', {'post': p, 'form': CommentForm})
 
 
-def home(request: HttpRequest):
+def post_list(request: HttpRequest):
     posts = Post.objects.all()
     print(posts)
-    return render(request, 'home.html', {'posts': posts})
+    return render(request, 'post_list.html', {'posts': posts})
+
+
+def home(request: HttpRequest):
+    return render(request, 'home.html')
 
 
 def comments(request: HttpRequest, post_id: int):

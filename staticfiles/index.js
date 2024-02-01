@@ -10,13 +10,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const homeDes = document.getElementById('home-description');
     const particlejs = document.getElementById('particles-js');
 
+    if (particlejs) {
+        particlesJS.load('particles-js', particlesConfigPath, function () {
+            console.log('callback - particles.js config loaded');
+        });
+    }
+    
     if (homeTitle && homeDes) {
         await typeWriter('soy tomas', homeTitle, 100);
         await typeWriter('analista universitario en sistemas y desarrollador fullstack', homeDes, 50);
-    }
-    if (particlejs) {
-        particlesJS.load('particles-js', 'particles.json', function () {
-            console.log('callback - particles.js config loaded');
-        });
     }
 });
